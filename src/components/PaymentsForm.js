@@ -12,6 +12,7 @@ import Checkbox from "@mui/material/Checkbox";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import Input from "./UI/Input";
 // import AddCardIcon from '@mui/icons-material/AddCard';
 import LocalActivityIcon from "@mui/icons-material/LocalActivity";
 
@@ -32,9 +33,6 @@ const PaymentsForm = () => {
           if (event.error) {
             console.log(event.error.message);
             // displayError.textContent = event.error.message;
-          } else {
-            console.log("no error");
-            // displayError.textContent = "";
           }
 
           if (event.complete) {
@@ -171,6 +169,7 @@ const PaymentsForm = () => {
 
               {/* <h3 id="card-errors"></h3> */}
               <Stack direction={"row"} spacing={1}>
+                {/* <Input type="text" required label="COUPON CODE"  /> */}
                 <TextField
                   type={"text"}
                   label={"COUPON CODE"}
