@@ -110,7 +110,7 @@ const PaymentsForm = () => {
       const createSubResp = await axios.post(
         "http://35.84.183.132:8000/payment/create-subscription",
         {
-          package: "prod_MBjVoP8HBObOSU",
+          package: "prod_MBjVimenIrDebb",
           coupon: "TESTCOUPONMBCREDIBLOCK",
         },
         {
@@ -124,7 +124,7 @@ const PaymentsForm = () => {
       console.log("Create Payment Intent Response(success,3d):", createSubResp);
       console.log(
         "payment_intent",
-        createSubResp?.payment_intent?.next_action?.redirect_to_url?.url
+        createSubResp?.data?.payment_intent?.next_action?.redirect_to_url?.url
       );
     } catch (e) {
       console.log("Backend Error{create Subscription)", e);
