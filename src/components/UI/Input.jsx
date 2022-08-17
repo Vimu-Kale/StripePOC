@@ -4,10 +4,8 @@ import parse from 'html-react-parser'
 import { useReducer, useRef, useState } from "react";
 const INPUT_CHANGE = "INPUT_CHANGE";
 const INPUT_BLUR = "INPUT_BLUR";
-const passwordRegex =
-  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,16}$/;
-const emailRegex =
-  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const passwordRegex =/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,16}$/;
+const emailRegex =/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const numberRegex = /\d/;
 const specialCharas = /[`!@#$%^&()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 const passwordMesssage =
@@ -106,7 +104,7 @@ const Input = (props) => {
         type={props.password ? (showPassword ? "text" : "password") : "text"}
         error={!inputState.isValid && inputState.touched}
         helperText={
-          !inputState.isValid && inputState.touched ? inputState.message : ""
+          !inputState.isValid && inputState.touched ? inputState.message : " "
         }
         onBlur={lostFocusHandler}
         InputProps={{
