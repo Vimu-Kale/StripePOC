@@ -19,6 +19,7 @@ import LocalActivityIcon from "@mui/icons-material/LocalActivity";
 const PaymentsForm = () => {
   const [coupon, setCoupon] = useState("");
   const [isCouponValid, setIsCouponValid] = useState(false);
+  const [password,setPassword]=useState("");
   const [applyLoading, setapplyLoading] = useState(false);
   const [useDefault, setUseDefault] = useState(false);
   const elements = useElements();
@@ -145,6 +146,21 @@ const PaymentsForm = () => {
     <div>
       <Container maxWidth="sm" sx={{ marginTop: "5rem" }}>
         <Paper elevation={5}>
+          <Input
+            id="password"
+            sx={{
+              paddingBottom:10,
+              width:300,
+            }}
+            type="password"
+            passwordValidation
+            password
+            required
+            onInputChange={(id, value, valid) => {
+              setPassword({ value, isValid: valid });
+            }}
+            label="Password"
+          />
           <form onSubmit={handleSubmit}>
             <Stack spacing={5} px={4} py={4}>
               {useDefault ? null : (

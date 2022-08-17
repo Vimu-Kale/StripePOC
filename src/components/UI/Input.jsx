@@ -1,17 +1,21 @@
 import { Box, IconButton, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import parse from 'html-react-parser'
 import { useReducer, useRef, useState } from "react";
+import {
+  passwordLengthMesssage,
+  numberRegex,
+  emailRegex,
+  passwordLowercaseMessage,
+  passwordLowercaseRegex,
+  passwordNumberMessage,
+  passwordNumberRegex,
+  passwordSpecialCharacterMessage,
+  passwordUppercaseMessage,
+  passwordUppercaseRegex,
+  specialCharas,
+} from "../../constants/regex";
 const INPUT_CHANGE = "INPUT_CHANGE";
 const INPUT_BLUR = "INPUT_BLUR";
-const passwordRegex =
-  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,16}$/;
-const emailRegex =
-  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const numberRegex = /\d/;
-const specialCharas = /[`!@#$%^&()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-const passwordMesssage =
-  "<ul><li>Password must be between 8 to 15 character</li></ul>";
 const inputReducer = (state, action) => {
   switch (action.type) {
     case INPUT_CHANGE:
@@ -42,21 +46,21 @@ const Input = (props) => {
     touched: false,
   });
   const lostFocusHandler = () => {
-    if (inputState.value.trim().length === 0) {
-      dispatch({ type: INPUT_BLUR, message: "Required Field" });
+    if (inputState.value.trim().length === 0 && props.required ) {
+      dispatch({ type: INPUT_BLUR, message: `${props.label} is Required` });
     } else {
       dispatch({ type: INPUT_BLUR });
     }
     onInputChange(id, inputState.value, inputState.isValid);
   };
   const onTextChangeHandler = (e) => {
-    let textValue = e.target.value;
+    let textValue = e.target.value.trim();
     if (props.required && textValue.trim().length === 0) {
       dispatch({
         type: INPUT_CHANGE,
         value: textValue,
         isValid: false,
-        message: "Required Field",
+        message: `${props.label} is Required `,
       });
       return;
     }
@@ -81,12 +85,68 @@ const Input = (props) => {
       });
       return;
     }
-    if (props.password && !passwordRegex.test(textValue)) {
+    if (
+      props.password &&
+      props.passwordValidation &&
+      !passwordNumberRegex.test(textValue)
+    ) {
       dispatch({
         type: INPUT_CHANGE,
         value: textValue,
         isValid: false,
-        message: parse(passwordMesssage) ,
+        message: passwordNumberMessage,
+      });
+      return;
+    }
+    if (
+      props.password &&
+      props.passwordValidation &&
+      !passwordLowercaseRegex.test(textValue)
+    ) {
+      dispatch({
+        type: INPUT_CHANGE,
+        value: textValue,
+        isValid: false,
+        message: passwordLowercaseMessage,
+      });
+      return;
+    }
+    if (
+      props.password &&
+      props.passwordValidation &&
+      !passwordUppercaseRegex.test(textValue)
+    ) {
+      dispatch({
+        type: INPUT_CHANGE,
+        value: textValue,
+        isValid: false,
+        message: passwordUppercaseMessage,
+      });
+      return;
+    }
+    if (
+      props.password &&
+      props.passwordValidation &&
+      !specialCharas.test(textValue)
+    ) {
+      dispatch({
+        type: INPUT_CHANGE,
+        value: textValue,
+        isValid: false,
+        message: passwordSpecialCharacterMessage,
+      });
+      return;
+    }
+    if (
+      props.password &&
+      props.passwordValidation &&
+      (textValue.length < 8 || textValue.length > 16)
+    ) {
+      dispatch({
+        type: INPUT_CHANGE,
+        value: textValue,
+        isValid: false,
+        message: passwordLengthMesssage,
       });
       return;
     }
@@ -101,12 +161,13 @@ const Input = (props) => {
     <Box>
       <TextField
         fullWidth={props.fullWidth}
+        sx={props.sx ? props.sx : {}}
         variant="outlined"
         label={props.label}
         type={props.password ? (showPassword ? "text" : "password") : "text"}
         error={!inputState.isValid && inputState.touched}
         helperText={
-          !inputState.isValid && inputState.touched ? inputState.message : ""
+          !inputState.isValid && inputState.touched ? inputState.message : " "
         }
         onBlur={lostFocusHandler}
         InputProps={{
