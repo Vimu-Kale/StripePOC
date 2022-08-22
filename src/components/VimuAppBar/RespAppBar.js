@@ -4,8 +4,9 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Paper, Stack } from "@mui/material";
+import { Paper } from "@mui/material";
 import Login from "../Login/Login";
+import LogoutButton from "../Logout/LogoutButton";
 
 const RespAppBar = () => {
   return (
@@ -25,7 +26,7 @@ const RespAppBar = () => {
             sx={{
               mr: 2,
               display: "flex",
-              fontFamily: "monospace",
+              fontFamily: "Inter",
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
@@ -59,6 +60,7 @@ const RespAppBar = () => {
               <Login />
             </Paper>
           </Box>
+          <LogoutButton />
         </Toolbar>
       </Container>
     </AppBar>

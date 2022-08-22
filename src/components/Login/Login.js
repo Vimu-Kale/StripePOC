@@ -10,8 +10,14 @@ const Login = () => {
     <div>
       <Stack>
         <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
-          <Input label="Email" fullWidth />
-          <Input label="Password" password fullWidth />
+          <Input label="Email" fullWidth required email />
+          <Input
+            label="Password"
+            password
+            fullWidth
+            required
+            passwordValidation
+          />
           <Button
             variant="contained"
             sx={{
@@ -27,7 +33,7 @@ const Login = () => {
             onClick={() => {
               dispatch(
                 setSnackBar({
-                  severity: "success",
+                  severity: "warning",
                   message: "This is a Generic SnackBar",
                 })
               );
@@ -36,7 +42,7 @@ const Login = () => {
             Login
           </Button>
         </Stack>
-        <a>
+        <div>
           <Typography
             sx={{
               float: { xs: "center", md: "left" },
@@ -52,7 +58,7 @@ const Login = () => {
           >
             Forgot Password ?
           </Typography>
-        </a>
+        </div>
       </Stack>
     </div>
   );

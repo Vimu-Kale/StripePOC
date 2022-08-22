@@ -12,14 +12,17 @@ import Checkbox from "@mui/material/Checkbox";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Input from "./UI/Input";
+// import Input from "./UI/Input";
 // import AddCardIcon from '@mui/icons-material/AddCard';
 import LocalActivityIcon from "@mui/icons-material/LocalActivity";
+import { setSnackBar } from "../slices/snackBarSlice";
+import { useDispatch } from "react-redux";
 
 const PaymentsForm = () => {
+  const dispatch = useDispatch();
   const [coupon, setCoupon] = useState("");
   const [isCouponValid, setIsCouponValid] = useState(false);
-  const [password,setPassword]=useState("");
+  // const [password,setPassword]=useState("");
   const [applyLoading, setapplyLoading] = useState(false);
   const [useDefault, setUseDefault] = useState(false);
   const elements = useElements();
@@ -62,10 +65,19 @@ const PaymentsForm = () => {
       console.log(response);
       setapplyLoading(false);
       setIsCouponValid(true);
+      dispatch(
+        setSnackBar({
+          severity: "success",
+          message: "Coupon Applied Successfully",
+        })
+      );
       // setCouponPer(response.data.percent_off);
     } catch (e) {
       setapplyLoading(false);
       console.log(e);
+      dispatch(
+        setSnackBar({ severity: "error", message: e.response.data.message })
+      );
     }
   };
 
@@ -146,7 +158,7 @@ const PaymentsForm = () => {
     <div>
       <Container maxWidth="sm" sx={{ marginTop: "5rem" }}>
         <Paper elevation={5}>
-          <Input
+          {/* <Input
             id="password"
             sx={{
               paddingBottom:10,
@@ -160,7 +172,7 @@ const PaymentsForm = () => {
               setPassword({ value, isValid: valid });
             }}
             label="Password"
-          />
+          /> */}
           <form onSubmit={handleSubmit}>
             <Stack spacing={5} px={4} py={4}>
               {useDefault ? null : (

@@ -38,16 +38,29 @@ const Welcome = () => {
         </Paper>
       </Container>
 
-      <Container maxWidth="xl" sx={{ marginTop: "4rem" }}>
+      <Container maxWidth="xl" sx={{ marginTop: "4rem", marginBottom: "4rem" }}>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <Grid width={"100%"} container sx={{ border: `1px solid black` }}>
+          <Grid
+            width={"100%"}
+            container
+            sx={
+              {
+                // border: `1px solid black`
+              }
+            }
+          >
             <Grid
               item
               xs={12}
               sm={12}
               md={6}
               lg={6}
-              sx={{ border: `1px solid black`, height: "70vh" }}
+              sx={
+                {
+                  // border: `1px solid black`,
+                  //  height: "70vh"
+                }
+              }
             >
               Marketing
             </Grid>
@@ -57,7 +70,12 @@ const Welcome = () => {
               sm={12}
               md={6}
               lg={6}
-              sx={{ border: `1px solid black`, height: "70vh" }}
+              sx={
+                {
+                  // border: `1px solid black`,
+                  // height: "70vh"
+                }
+              }
             >
               <Signup />
             </Grid>
